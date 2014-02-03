@@ -1,4 +1,5 @@
 import sys
+import random
 
 class HaikuGenerator:
 	'''
@@ -14,6 +15,8 @@ class HaikuGenerator:
 	Functions:
 		(Constructor) __init__
 		(list of strings) getWordsBySyllables
+		(string) writeLine
+		(string) generate
 	'''
 	
 	def __init__(self, dictionaryFile):
@@ -45,7 +48,7 @@ class HaikuGenerator:
 			(int) syllableCount:
 				The number of syllables of the list of words you would like to retrieve.
 		return:
-			
+			A list of words with number of syllables 'syllableCount'.
 		'''
 		return self.__dictionary[syllableCount - 1];
 		
@@ -55,11 +58,39 @@ class HaikuGenerator:
 		args:
 			(int) syllableCount:
 			Amount of syllables the outputted line will have.
+		return:
+			A single haiku line containing the desired syllable count.
 		'''
 		
+		remainingSyllables = syllableCount			#Keep track of remaining space.
+		outputString = ''							#Empty string to create line
+		while remainingSyllables != 0:
+			#Choose a random int between 1 and however many syllables are remaining, 
+			#select a word of that length and then append it to the string
+			syllables = random.randint(1, remainingSyllables)
+			newWord = random.choice(self.getWordsBySyllables(syllables))
+			
+			outputString += newWord + ' '			#Append and...
+			remainingSyllables -= syllables			#Subtract syllabes of added word from 
+													#remaining syllable counter
+		return outputString.strip()					#Get rid of extra whitespace
+		
+	def generate(self):
+		'''
+		Issues the command to generate a full haiku and returns the string.
+		args:
+			(void)
+		return:
+			String containing the haiku.
+		'''
+		outputHaiku = ''
+		for lineSyllables in self.format:					#Run through format (5,7,5)...
+			outputHaiku += self.writeLine(lineSyllables) + '\n' #and append the new lines
+		return outputHaiku.strip()							#Get rid of extra whitespace
+	
 #################################################
 #					MAIN						#
 #################################################
 if __name__ == '__main__':
-	print 'Hello!'
 	haiku = HaikuGenerator('dictionary.dict')
+	print haiku.generate()

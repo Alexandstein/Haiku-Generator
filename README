@@ -1,0 +1,27 @@
+======================
+Python Haiku Generator
+======================
+This is just a simple program that I made as part of a small cookbook-style Python tutorial
+
+You can run it standalone with just $- python haiku.py since it has its own main section,
+or you can import it into your own scripts for use. 
+
+For the purposes of the assignment, it isn't very sophisticated and can't output
+grammatically sound sentences. In the future it may end up being worked on to provide
+functionality like this.
+
+-------------
+Usage
+-------------
+Using the class is very simple. Just instantiate it by giving the constructor a dictionary
+'HaikuGenerator(<pathname>)' and then use '.generate()' to return a string. Information
+on any other functions is inside of the docstring.
+
+-------------
+Dictionary
+-------------
+At this iteration, the dictionary files are very simple. Looking into the sample
+dictionary included with the program, the files are just .cvs lists with words paired
+alongside their syllable count.
+Potential future iterations with capacity for grammar will be more sophisticated and
+include informations pertaining to how the word is grammatically used.
