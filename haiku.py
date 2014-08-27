@@ -35,7 +35,7 @@ class HaikuGenerator:
 			f = open(dictionaryFile, 'r')				#Opens the file
 			
 			for line in f:								#Iterate over lines in the file
-				line = line.split(',')						#Turn lines into lists of word, syllable pairs
+				line = line.split(',')					#Turn lines into lists of word, syllable pairs
 				self.__dictionary[int(line[1]) - 1].append(line[0])	#append the word to a list
 			
 		except IOError:									#Something has gone wrong!
@@ -50,7 +50,7 @@ class HaikuGenerator:
 		return:
 			A list of words with number of syllables 'syllableCount'.
 		'''
-		return self.__dictionary[syllableCount - 1];
+		return self.__dictionary[syllableCount - 1]
 		
 	def writeLine(self, syllableCount):
 		'''
@@ -64,6 +64,7 @@ class HaikuGenerator:
 		
 		remainingSyllables = syllableCount			#Keep track of remaining space.
 		outputString = ''							#Empty string to create line
+		
 		while remainingSyllables != 0:
 			#Choose a random int between 1 and however many syllables are remaining, 
 			#select a word of that length and then append it to the string
@@ -73,7 +74,7 @@ class HaikuGenerator:
 			outputString += newWord + ' '			#Append and...
 			remainingSyllables -= syllables			#Subtract syllabes of added word from 
 													#remaining syllable counter
-		return outputString.strip()					#Get rid of extra whitespace
+		return outputString.strip().capitalize()	#Get rid of extra whitespace
 		
 	def generate(self):
 		'''
@@ -87,10 +88,3 @@ class HaikuGenerator:
 		for lineSyllables in self.format:					#Run through format (5,7,5)...
 			outputHaiku += self.writeLine(lineSyllables) + '\n' #and append the new lines
 		return outputHaiku.strip()							#Get rid of extra whitespace
-	
-#################################################
-#					MAIN						#
-#################################################
-if __name__ == '__main__':
-	haiku = HaikuGenerator('dictionary.dict')
-	print haiku.generate()
